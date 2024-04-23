@@ -1,0 +1,11 @@
+###
+POST http://localhost:8000/api/rewards/getrewards
+content-type: application/json
+
+{
+    "customerId": "C001",
+    "customerName":"PRASAD",
+    "spentOver":120,
+    "rewardPoints":0,
+    "pastSummary": 3
+}
