@@ -1,11 +1,22 @@
 ###
-POST http://localhost:8000/api/rewards/getrewards
+GET http://localhost:8000/rewardsprogram/api/rewards/summary
+
+POST http://localhost:8000/rewardsprogram/api/rewards/getrewards
+
 content-type: application/json
 
 {
-    "customerId": "C001",
-    "customerName":"PRASAD",
-    "spentOver":120,
-    "rewardPoints":0,
-    "pastSummary": 3
+    "customerId":"C002",
+    "customerName":"PrasadR",
+    "spentOver":120
+}
+
+PUT http://localhost:8000/rewardsprogram/api/rewards/redeem
+
+content-type: application/json
+
+{
+    "customerId":"C002",
+    "customerName":"Prasad",
+    "redeemPoints":90
 }
