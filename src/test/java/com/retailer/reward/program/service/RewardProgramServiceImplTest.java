@@ -54,7 +54,7 @@ public class RewardProgramServiceImplTest {
         when(rewardProgramRepository.findAll()).thenReturn(Arrays.asList(reward1, reward2));
 
         // Mock the mapping
-        when(rewardMapper.fromCountry(any(Rewards.class))).thenReturn(new RewardsDto());
+        when(rewardMapper.fromRewards(any(Rewards.class))).thenReturn(new RewardsDto());
 
         // Call the method
         List<RewardsDto> rewardsDtos = rewardProgramServiceImpl.rewardSummary();
@@ -78,7 +78,7 @@ public class RewardProgramServiceImplTest {
         when(rewardProgramRepository.save(rewards)).thenReturn(rewards);
 
         // Mock the mapping
-        when(rewardMapper.fromCountry(rewards)).thenReturn(rewardsDto);
+        when(rewardMapper.fromRewards(rewards)).thenReturn(rewardsDto);
 
         // Call the method
         RewardsDto result = rewardProgramServiceImpl.getMyRewards(rewardsDto);

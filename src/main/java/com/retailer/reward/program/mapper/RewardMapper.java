@@ -9,5 +9,5 @@ public interface RewardMapper {
 
     Rewards toRewards(RewardsDto rewardsDto);
 
-    RewardsDto fromCountry(Rewards rewards);
+    RewardsDto fromRewards(Rewards rewards);
 }

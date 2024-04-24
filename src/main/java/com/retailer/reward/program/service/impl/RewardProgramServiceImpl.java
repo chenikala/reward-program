@@ -44,7 +44,7 @@ public class RewardProgramServiceImpl implements RewardProgramService {
     public List<RewardsDto> rewardSummary() {
         log.info("get all reward list");
         List<Rewards> rewardsList = rewardProgramRepository.findAll();
-        return rewardsList.stream().map(rewardMapper::fromCountry).collect(Collectors.toList());
+        return rewardsList.stream().map(rewardMapper::fromRewards).collect(Collectors.toList());
     }
 
     /**
@@ -69,7 +69,7 @@ public class RewardProgramServiceImpl implements RewardProgramService {
         Rewards rewards = rewardMapper.toRewards(rewardsDto);
         Rewards rewardResult = rewardProgramRepository.save(rewards);
 
-        return rewardMapper.fromCountry(rewardResult);
+        return rewardMapper.fromRewards(rewardResult);
     }
 
     /**
