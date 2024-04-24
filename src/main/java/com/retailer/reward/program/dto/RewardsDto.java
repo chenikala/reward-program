@@ -1,12 +1,19 @@
 package com.retailer.reward.program.dto;
 
-import java.time.Instant;
+import lombok.*;
 
-public record RewardsDto(
-        String customerId,
-        String customerName,
-        double spentOver,
-        int rewardPoints,
-        int pastSummary,
-        Instant date) {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
+@Builder
+public class RewardsDto {
+        private String rewardId;
+        private String customerId;
+        private String customerName;
+        private double spentOver;
+        private int rewardPoints;
+        private String transactionDate;
+        private int redeemPoints;
 }

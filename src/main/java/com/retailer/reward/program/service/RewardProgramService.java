@@ -10,7 +10,7 @@ import java.util.List;
  * Reward program service interface
  */
 public interface RewardProgramService {
-    public List<String> rewardSummary();
-    public List<RewardsDto> getMyRewards(@RequestBody RewardsDto rewardsDto);
-    public List<RewardsDto> redeemMyRewards(@RequestBody RewardsDto rewardsDto);
+    public List<RewardsDto> rewardSummary();
+    public RewardsDto getMyRewards(@RequestBody RewardsDto rewardsDto);
+    public RewardsDto redeemMyRewards(@RequestBody RewardsDto rewardsDto);
 }

@@ -20,28 +20,28 @@ public class RewardProgramController{
     private RewardProgramService rewardProgramService;
 
     @GetMapping(Api.Rewards.REWARDS_SUMMARY)
-    public GenericResponse<List<String>> rewardSummary(){
-        List<String> result = rewardProgramService.rewardSummary();
-        return GenericResponse.<List<String>>builder()
+    public GenericResponse<List<RewardsDto>> rewardSummary(){
+        List<RewardsDto> result = rewardProgramService.rewardSummary();
+        return GenericResponse.<List<RewardsDto>>builder()
                 .success(true)
                 .data(result)
                 .build();
     }
 
     @PostMapping(Api.Rewards.GET_REWARDS)
-    public GenericResponse<List<RewardsDto>> getMyRewards(@RequestBody RewardsDto rewardsDto){
-        List<RewardsDto> result = rewardProgramService.getMyRewards(rewardsDto);
-        return GenericResponse.<List<RewardsDto>>builder()
+    public GenericResponse<RewardsDto> getMyRewards(@RequestBody RewardsDto rewardsDto){
+        RewardsDto result = rewardProgramService.getMyRewards(rewardsDto);
+        return GenericResponse.<RewardsDto>builder()
                 .success(true)
                 .data(result)
                 .build();
     }
     @PutMapping(Api.Rewards.REDEEM_REWARDS)
-    public GenericResponse<List<RewardsDto>> redeemMyRewards(@RequestBody RewardsDto rewardsDto){
-        List<RewardsDto> result = rewardProgramService.redeemMyRewards(rewardsDto);
-        return GenericResponse.<List<RewardsDto>>builder()
+    public GenericResponse<RewardsDto> redeemMyRewards(@RequestBody RewardsDto rewardsDto){
+        RewardsDto result = rewardProgramService.redeemMyRewards(rewardsDto);
+        return GenericResponse.<RewardsDto>builder()
                 .success(true)
-                .data(List.of(rewardsDto))
+                .data(rewardsDto)
                 .build();
     }
 }
