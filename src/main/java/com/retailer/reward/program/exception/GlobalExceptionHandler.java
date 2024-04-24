@@ -13,13 +13,20 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({SpentOverEmptyException.class})
     public ResponseEntity<GenericResponse<Object>> zeroTransactionAmountException(SpentOverEmptyException exception){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                GenericResponse.builder().success(false).message(exception.getMessage()).data(LocaleContextHolder.getLocale().toString()).build()
+                GenericResponse.builder().success(false).message(exception.getMessage()).data(null).build()
         );
     }
     @ExceptionHandler({NotFoundException.class})
     public ResponseEntity<GenericResponse<Object>> invalidRewardDataException(NotFoundException exception){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                GenericResponse.builder().success(false).message(exception.getMessage()).data(LocaleContextHolder.getLocale().toString()).build()
+                GenericResponse.builder().success(false).message(exception.getMessage()).data(null).build()
+        );
+    }
+
+    @ExceptionHandler({InsufficientRewardPointsException.class})
+    public ResponseEntity<GenericResponse<Object>> insufficientRewardPointsException(InsufficientRewardPointsException exception){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                GenericResponse.builder().success(false).message(exception.getMessage()).data(null).build()
         );
     }
 }
