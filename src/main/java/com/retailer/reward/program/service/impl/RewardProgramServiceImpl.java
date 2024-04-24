@@ -9,15 +9,12 @@ import com.retailer.reward.program.repository.RewardProgramRepository;
 import com.retailer.reward.program.service.CalculateRewards;
 import com.retailer.reward.program.service.RewardProgramService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.retailer.reward.program.util.constants.RewardConstants.INVALID_REWARD_DATA;
@@ -27,6 +24,7 @@ import static com.retailer.reward.program.util.constants.RewardConstants.SPENTOV
  * Reward program service implementation
  */
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class RewardProgramServiceImpl implements RewardProgramService {
 
@@ -44,8 +42,9 @@ public class RewardProgramServiceImpl implements RewardProgramService {
      */
     @Override
     public List<RewardsDto> rewardSummary() {
+        log.info("get all reward list");
         List<Rewards> rewardsList = rewardProgramRepository.findAll();
-        return rewardsList.stream().map(s->rewardMapper.fromCountry(s)).collect(Collectors.toList());
+        return rewardsList.stream().map(rewardMapper::fromCountry).collect(Collectors.toList());
     }
 
     /**

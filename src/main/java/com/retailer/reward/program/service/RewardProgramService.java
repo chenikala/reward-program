@@ -1,7 +1,6 @@
 package com.retailer.reward.program.service;
 
 import com.retailer.reward.program.dto.RewardsDto;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
