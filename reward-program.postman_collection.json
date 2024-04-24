@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "90b74857-62d8-47bd-8e73-9310cccb39bb",
+		"name": "reward-program",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34486314"
+	},
+	"item": [
+		{
+			"name": "summary",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/rewardsprogram/api/rewards/summary",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"rewardsprogram",
+						"api",
+						"rewards",
+						"summary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getrewards",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerId\":\"C002\",\r\n    \"customerName\":\"PrasadR\",\r\n    \"spentOver\":120\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/rewardsprogram/api/rewards/getrewards",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"rewardsprogram",
+						"api",
+						"rewards",
+						"getrewards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "redeem",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerId\":\"C002\",\r\n    \"customerName\":\"Prasad\",\r\n    \"redeemPoints\":990\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/rewardsprogram/api/rewards/redeem",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"rewardsprogram",
+						"api",
+						"rewards",
+						"redeem"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
