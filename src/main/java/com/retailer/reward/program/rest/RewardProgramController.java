@@ -5,6 +5,7 @@ import com.retailer.reward.program.service.RewardProgramService;
 import com.retailer.reward.program.util.Api;
 import com.retailer.reward.program.util.GenericResponse;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @RestController
 @AllArgsConstructor
+@Slf4j
 @RequestMapping(Api.Rewards.BASE_URL)
 public class RewardProgramController{
 
@@ -21,6 +23,7 @@ public class RewardProgramController{
 
     @GetMapping(Api.Rewards.REWARDS_SUMMARY)
     public GenericResponse<List<RewardsDto>> rewardSummary(){
+        log.info("RewardProgramController::rewardSummary");
         List<RewardsDto> result = rewardProgramService.rewardSummary();
         return GenericResponse.<List<RewardsDto>>builder()
                 .success(true)
@@ -30,6 +33,7 @@ public class RewardProgramController{
 
     @PostMapping(Api.Rewards.GET_REWARDS)
     public GenericResponse<RewardsDto> getMyRewards(@RequestBody RewardsDto rewardsDto){
+        log.info("RewardProgramController::getMyRewards");
         RewardsDto result = rewardProgramService.getMyRewards(rewardsDto);
         return GenericResponse.<RewardsDto>builder()
                 .success(true)
@@ -38,6 +42,7 @@ public class RewardProgramController{
     }
     @PutMapping(Api.Rewards.REDEEM_REWARDS)
     public GenericResponse<RewardsDto> redeemMyRewards(@RequestBody RewardsDto rewardsDto){
+        log.info("RewardProgramController::redeemMyRewards");
         RewardsDto result = rewardProgramService.redeemMyRewards(rewardsDto);
         return GenericResponse.<RewardsDto>builder()
                 .success(true)

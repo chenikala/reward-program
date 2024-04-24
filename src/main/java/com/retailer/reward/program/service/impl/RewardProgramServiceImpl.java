@@ -42,7 +42,7 @@ public class RewardProgramServiceImpl implements RewardProgramService {
      */
     @Override
     public List<RewardsDto> rewardSummary() {
-        log.info("get all reward list");
+        log.info("get reward summary from RewardProgramServiceImpl::rewardSummary");
         List<Rewards> rewardsList = rewardProgramRepository.findAll();
         return rewardsList.stream().map(rewardMapper::fromRewards).collect(Collectors.toList());
     }
@@ -54,11 +54,13 @@ public class RewardProgramServiceImpl implements RewardProgramService {
      */
     @Override
     public RewardsDto getMyRewards(RewardsDto rewardsDto) {
-
+        log.info("get all reward list from RewardProgramServiceImpl::getMyRewards");
         if(rewardsDto==null){
+            log.error("Rewards data is empty or null");
             throw new NotFoundException(INVALID_REWARD_DATA);
         }
         if(rewardsDto.getSpentOver() <= 0.0){
+            log.error("Spent over should be grater than Zero.");
             throw new SpentOverEmptyException(SPENTOVER_EMPTY);
         }
         int rewardPoints = calculateRewards.calculateRewardPoints(rewardsDto.getSpentOver());
@@ -79,6 +81,7 @@ public class RewardProgramServiceImpl implements RewardProgramService {
      */
     @Override
     public RewardsDto redeemMyRewards(RewardsDto rewardsDto) {
+        log.info("RewardProgramServiceImpl::redeemMyRewards");
         List<Rewards> rewardsList = rewardProgramRepository.findByCustomerId(rewardsDto.getCustomerId());
         int finalCount = rewardsList.stream().mapToInt(Rewards::getRewardPoints).sum();
         calculateRewards.redeemRewardPoints(finalCount, rewardsDto.getRedeemPoints());
