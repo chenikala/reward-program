@@ -46,6 +46,16 @@ public class RewardProgramServiceImpl implements RewardProgramService {
         List<Rewards> rewardsList = rewardProgramRepository.findAll();
         return rewardsList.stream().map(rewardMapper::fromRewards).collect(Collectors.toList());
     }
+    /**
+     * Get overall reward summary for one customer
+     * @return
+     */
+    @Override
+    public List<RewardsDto> customerRewardSummary(String customerId) {
+        log.info("get reward summary from RewardProgramServiceImpl::customerRewardSummary");
+        List<Rewards> rewardsList = rewardProgramRepository.findByCustomerId(customerId);
+        return rewardsList.stream().map(rewardMapper::fromRewards).collect(Collectors.toList());
+    }
 
     /**
      * Add rewards to the customer based on spendover

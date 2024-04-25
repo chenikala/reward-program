@@ -31,6 +31,16 @@ public class RewardProgramController{
                 .build();
     }
 
+    @GetMapping(Api.Rewards.CUSTOMER_REWARDS_SUMMARY)
+    public GenericResponse<List<RewardsDto>> customerRewardSummary(@PathVariable(name = "customerId") String customerId){
+        log.info("RewardProgramController::customerRewardSummary");
+        List<RewardsDto> result = rewardProgramService.customerRewardSummary(customerId);
+        return GenericResponse.<List<RewardsDto>>builder()
+                .success(true)
+                .data(result)
+                .build();
+    }
+
     @PostMapping(Api.Rewards.GET_REWARDS)
     public GenericResponse<RewardsDto> getMyRewards(@RequestBody RewardsDto rewardsDto){
         log.info("RewardProgramController::getMyRewards");
