@@ -9,6 +9,7 @@ public class Api {
     public static class Rewards{
         public static final String BASE_URL = "/api/rewards";
         public static final String REWARDS_SUMMARY = "/summary";
+        public static final String CUSTOMER_REWARDS_SUMMARY = "/summary/customerId/{customerId}";
         public static final String GET_REWARDS = "/getrewards";
         public static final String REDEEM_REWARDS = "/redeem";
     }

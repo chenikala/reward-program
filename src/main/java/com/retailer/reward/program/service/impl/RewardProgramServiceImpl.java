@@ -9,15 +9,12 @@ import com.retailer.reward.program.repository.RewardProgramRepository;
 import com.retailer.reward.program.service.CalculateRewards;
 import com.retailer.reward.program.service.RewardProgramService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.retailer.reward.program.util.constants.RewardConstants.INVALID_REWARD_DATA;
@@ -27,6 +24,7 @@ import static com.retailer.reward.program.util.constants.RewardConstants.SPENTOV
  * Reward program service implementation
  */
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class RewardProgramServiceImpl implements RewardProgramService {
 
@@ -44,8 +42,19 @@ public class RewardProgramServiceImpl implements RewardProgramService {
      */
     @Override
     public List<RewardsDto> rewardSummary() {
+        log.info("get reward summary from RewardProgramServiceImpl::rewardSummary");
         List<Rewards> rewardsList = rewardProgramRepository.findAll();
-        return rewardsList.stream().map(s->rewardMapper.fromCountry(s)).collect(Collectors.toList());
+        return rewardsList.stream().map(rewardMapper::fromRewards).collect(Collectors.toList());
+    }
+    /**
+     * Get overall reward summary for one customer
+     * @return
+     */
+    @Override
+    public List<RewardsDto> customerRewardSummary(String customerId) {
+        log.info("get reward summary from RewardProgramServiceImpl::customerRewardSummary");
+        List<Rewards> rewardsList = rewardProgramRepository.findByCustomerId(customerId);
+        return rewardsList.stream().map(rewardMapper::fromRewards).collect(Collectors.toList());
     }
 
     /**
@@ -55,11 +64,13 @@ public class RewardProgramServiceImpl implements RewardProgramService {
      */
     @Override
     public RewardsDto getMyRewards(RewardsDto rewardsDto) {
-
+        log.info("get all reward list from RewardProgramServiceImpl::getMyRewards");
         if(rewardsDto==null){
+            log.error("Rewards data is empty or null");
             throw new NotFoundException(INVALID_REWARD_DATA);
         }
         if(rewardsDto.getSpentOver() <= 0.0){
+            log.error("Spent over should be grater than Zero.");
             throw new SpentOverEmptyException(SPENTOVER_EMPTY);
         }
         int rewardPoints = calculateRewards.calculateRewardPoints(rewardsDto.getSpentOver());
@@ -70,7 +81,7 @@ public class RewardProgramServiceImpl implements RewardProgramService {
         Rewards rewards = rewardMapper.toRewards(rewardsDto);
         Rewards rewardResult = rewardProgramRepository.save(rewards);
 
-        return rewardMapper.fromCountry(rewardResult);
+        return rewardMapper.fromRewards(rewardResult);
     }
 
     /**
@@ -80,6 +91,7 @@ public class RewardProgramServiceImpl implements RewardProgramService {
      */
     @Override
     public RewardsDto redeemMyRewards(RewardsDto rewardsDto) {
+        log.info("RewardProgramServiceImpl::redeemMyRewards");
         List<Rewards> rewardsList = rewardProgramRepository.findByCustomerId(rewardsDto.getCustomerId());
         int finalCount = rewardsList.stream().mapToInt(Rewards::getRewardPoints).sum();
         calculateRewards.redeemRewardPoints(finalCount, rewardsDto.getRedeemPoints());

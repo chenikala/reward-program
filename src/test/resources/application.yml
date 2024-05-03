@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    password: password
+    username: sa
+  h2:
+    console:
+      enabled: 'true'
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
