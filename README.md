@@ -12,3 +12,4 @@ A retailer offers a rewards program to its customers, awarding points based on e
 * POST http://localhost:8000/rewardsprogram/api/rewards/getrewards
 * PUT http://localhost:8000/rewardsprogram/api/rewards/redeem
 
+Swagger URL: http://localhost:8000/rewardsprogram/swagger-ui/index.html
