@@ -1,0 +1,11 @@
+
+type Query{
+    memberDetails(memberId: Int!): Member
+}
+type Member{
+id: ID
+firstName: String
+lastName: String
+type: String
+contact: String
+}

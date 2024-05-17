@@ -1,7 +1,7 @@
 package com.retailer.reward.program.mapper;
 
 import com.retailer.reward.program.dto.RewardsDto;
-import com.retailer.reward.program.entity.Rewards;
+import com.retailer.reward.program.entity.postgres.Rewards;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

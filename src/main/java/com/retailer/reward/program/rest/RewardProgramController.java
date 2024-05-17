@@ -10,6 +10,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,6 +41,24 @@ public class RewardProgramController{
         log.info("RewardProgramController::rewardSummary");
         List<RewardsDto> result = rewardProgramService.rewardSummary();
         return GenericResponse.<List<RewardsDto>>builder()
+                .success(true)
+                .data(result)
+                .build();
+    }
+
+    @Operation(summary = "Get list of reward data as JSON",
+            description = "Returns the list of reward data in JSON format",
+            responses = {
+                    @ApiResponse(responseCode = "200",
+                            description = "Data retrieved successfully",
+                            content = @Content(mediaType = "application/json",
+                                    schema = @Schema(implementation = GenericResponse.class)))
+            })
+    @GetMapping(Api.Rewards.REWARDS_SUMMARY_PAGE)
+    public GenericResponse<Page<RewardsDto>> rewardSummaryByPage(@PageableDefault(size = 5) Pageable pageable){
+        log.info("RewardProgramController::rewardSummary");
+        Page<RewardsDto> result = rewardProgramService.rewardSummaryPageBy(pageable);
+        return GenericResponse.<Page<RewardsDto>>builder()
                 .success(true)
                 .data(result)
                 .build();
@@ -92,7 +113,7 @@ public class RewardProgramController{
         RewardsDto result = rewardProgramService.redeemMyRewards(rewardsDto);
         return GenericResponse.<RewardsDto>builder()
                 .success(true)
-                .data(rewardsDto)
+                .data(result)
                 .build();
     }
 }

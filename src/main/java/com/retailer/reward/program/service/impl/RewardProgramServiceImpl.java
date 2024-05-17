@@ -1,20 +1,24 @@
 package com.retailer.reward.program.service.impl;
 
 import com.retailer.reward.program.dto.RewardsDto;
-import com.retailer.reward.program.entity.Rewards;
+import com.retailer.reward.program.entity.postgres.Rewards;
 import com.retailer.reward.program.exception.NotFoundException;
 import com.retailer.reward.program.exception.SpentOverEmptyException;
 import com.retailer.reward.program.mapper.RewardMapper;
-import com.retailer.reward.program.repository.RewardProgramRepository;
+import com.retailer.reward.program.repository.postgres.RewardProgramRepository;
 import com.retailer.reward.program.service.CalculateRewards;
 import com.retailer.reward.program.service.RewardProgramService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.retailer.reward.program.util.constants.RewardConstants.INVALID_REWARD_DATA;
@@ -46,6 +50,37 @@ public class RewardProgramServiceImpl implements RewardProgramService {
         List<Rewards> rewardsList = rewardProgramRepository.findAll();
         return rewardsList.stream().map(rewardMapper::fromRewards).collect(Collectors.toList());
     }
+
+    /**
+     * Get overall reward summary
+     * @return
+     */
+    @Override
+    public Page<RewardsDto> rewardSummaryPageBy(Pageable pageable) {
+        log.info("get reward summary from RewardProgramServiceImpl::rewardSummaryPageBy");
+        Page<Rewards> page = rewardProgramRepository.findAll(pageable);
+        Function<Rewards, RewardsDto> converterFunction = entity -> {
+            return new RewardsDto(String.valueOf(entity.getRewardId()),
+                    entity.getCustomerId(),
+                    entity.getCustomerName(),
+                    entity.getSpentOver(),
+                    entity.getRewardPoints(),
+                    entity.getTransactionDate(),
+                    entity.getRedeemPoints());
+        };
+        return convertPage(page, converterFunction);
+    }
+
+    public static <E, V> Page<V> convertPage(Page<E> page, Function<E, V> converter) {
+        List<V> content = page.getContent()
+                .stream()
+                .map(converter)
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(content, page.getPageable(), page.getTotalElements());
+    }
+
+
     /**
      * Get overall reward summary for one customer
      * @return

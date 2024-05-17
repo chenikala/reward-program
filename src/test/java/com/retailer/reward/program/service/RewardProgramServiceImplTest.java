@@ -1,15 +1,11 @@
 package com.retailer.reward.program.service;
 
-import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-
 import com.retailer.reward.program.dto.RewardsDto;
-import com.retailer.reward.program.entity.Rewards;
-import com.retailer.reward.program.exception.SpentOverEmptyException;
+import com.retailer.reward.program.entity.postgres.Rewards;
 import com.retailer.reward.program.exception.NotFoundException;
+import com.retailer.reward.program.exception.SpentOverEmptyException;
 import com.retailer.reward.program.mapper.RewardMapper;
-import com.retailer.reward.program.repository.RewardProgramRepository;
+import com.retailer.reward.program.repository.postgres.RewardProgramRepository;
 import com.retailer.reward.program.service.impl.RewardProgramServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,8 +13,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class RewardProgramServiceImplTest {

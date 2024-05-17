@@ -1,24 +1,59 @@
+reward:
+  program:
+    datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      password: root
+      jdbcUrl: jdbc:mysql://localhost:3306/mydb
+      username: root
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL8Dialect
+    jpa:
+      database: mysql
+      hibernate:
+        ddl-auto: update
+server:
+  port: 8000
+  servlet:
+    context-path: /rewardsprogram
 spring:
   application:
     name: reward-program
-  datasource:
-    driverClassName: org.h2.Driver
-    password: password
-    username: sa
-    url: jdbc:h2:file:/rewardprogram
-  h2:
-    console:
-      settings:
-        trace: 'false'
-        web-allow-others: 'false'
-      path: /h2-console
-      enabled: 'true'
   banner:
     image:
       location: classpath:banner.txt
+#  data:
+#    mongodb:
+#      uri: mongodb://localhost:27017/mydatabase
+
+  datasource:
+    password: prpassword
+    jdbcUrl: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    driver-class-name: org.postgresql.Driver
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-server:
-  servlet:
-    context-path: /rewardsprogram
-  port: '8000'
+    database: default
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        jdbc:
+#          lob:
+#            non_contextual_creation: true
+    show-sql: true
+
+# H2 database connection details
+#  datasource:
+#    driverClassName: org.h2.Driver
+#    password: password
+#    username: sa
+#    url: jdbc:h2:file:/rewardprogram
+#  h2:
+#    console:
+#      settings:
+#        trace: 'false'
+#        web-allow-others: 'false'
+#      path: /h2-console
+#      enabled: 'true'
+#  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
