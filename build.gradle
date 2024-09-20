@@ -37,6 +37,8 @@ dependencies {
     testImplementation libs.org.springframework.graphql.spring.graphql.test
     compileOnly libs.org.projectlombok.lombok
     annotationProcessor libs.org.projectlombok.lombok
+    testImplementation libs.org.springframework.restdocs.spring.restdocs.mockmvc
+    testImplementation libs.org.springframework.restdocs.spring.restdocs.webtestclient
 }
 
 group = 'com.retailer'
